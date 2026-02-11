@@ -141,9 +141,9 @@ LIMIT 50;
 --        thousands, that's likely the cost problem right there.
 
 SELECT
-    count(DISTINCT metric_name) AS total_metrics,
-    count(DISTINCT fingerprint) AS total_time_series,
-    round(count(DISTINCT fingerprint) / count(DISTINCT metric_name), 1) AS avg_cardinality_per_metric,
+    count() AS total_metrics,
+    sum(per_metric_cardinality) AS total_time_series,
+    round(avg(per_metric_cardinality), 1) AS avg_cardinality_per_metric,
     max(per_metric_cardinality) AS max_cardinality_single_metric
 FROM (
     SELECT
